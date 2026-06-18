@@ -1145,3 +1145,7 @@ footer .small {
 .site-logo-plate .site-logo { height: 40px; }
 @media (max-width: 600px) { .site-logo { height: 38px; } }
 
+/* ====== Icone social footer ====== */
+.fsoc a { color: #cfe0f2; }
+.fsoc a:hover { color: #fff; }
+.fsoc svg { width: 18px; height: 18px; display: block; }
