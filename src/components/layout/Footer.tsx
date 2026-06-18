@@ -70,7 +70,10 @@ export const Footer: React.FC = () => {
         </div>
         <div className="fbot">
           <div>© 2026 Aleclima e Impianti S.r.l.s · P. IVA 15597681004</div>
-          <div>Privacy · Cookie · Tutti i diritti riservati</div>
+          <div>
+            <button className="cc-prefs-link" onClick={() => window.dispatchEvent(new Event('aleclima:cookie'))}>Preferenze cookie</button>
+            {" · "}<a href="/privacy-policy">Privacy</a>{" · "}<a href="/cookie-policy">Cookie</a>{" · Tutti i diritti riservati"}
+          </div>
         </div>
       </div>
     </footer>
