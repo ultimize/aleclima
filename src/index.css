@@ -1072,3 +1072,61 @@ footer .small {
     display: none;
   }
 }
+
+/* ====== Pulsante WhatsApp flottante ====== */
+.wa-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 58px;
+  width: 58px;
+  background: #25D366;
+  color: #fff;
+  border-radius: 999px;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: width .25s ease;
+  animation: waRing 2.6s ease-out infinite;
+}
+.wa-float svg { flex: 0 0 auto; margin: 0 14px; }
+.wa-float__label {
+  font-weight: 600;
+  font-size: 15px;
+  max-width: 0;
+  opacity: 0;
+  transition: max-width .25s ease, opacity .2s ease, padding .25s ease;
+  padding-right: 0;
+}
+@media (hover: hover) {
+  .wa-float:hover { width: 250px; }
+  .wa-float:hover .wa-float__label { max-width: 200px; opacity: 1; padding-right: 20px; }
+}
+.wa-float:focus-visible { outline: 3px solid var(--notte); outline-offset: 3px; }
+@keyframes waRing {
+  0%   { box-shadow: 0 8px 22px rgba(37,211,102,.45), 0 0 0 0 rgba(37,211,102,.5); }
+  70%  { box-shadow: 0 8px 22px rgba(37,211,102,.45), 0 0 0 16px rgba(37,211,102,0); }
+  100% { box-shadow: 0 8px 22px rgba(37,211,102,.45), 0 0 0 0 rgba(37,211,102,0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wa-float { animation: none; box-shadow: 0 8px 22px rgba(37,211,102,.45); }
+}
+@media (max-width: 600px) {
+  .wa-float { right: 16px; bottom: 16px; height: 54px; width: 54px; }
+  .wa-float svg { margin: 0 12px; }
+}
+
+/* ====== Fix Contatti: evita overflow su mobile (email/indirizzi lunghi) ====== */
+.cgrid > *, .cbox, .form { min-width: 0; }
+.crow > div:last-child { min-width: 0; flex: 1 1 auto; }
+.crow .cv, .crow .ck { overflow-wrap: anywhere; word-break: break-word; }
+.al-root { overflow-x: hidden; }
+
+@media (max-width: 600px) {
+  .wrap { padding: 0 16px; }
+  .cbox, .form { padding: 20px 18px; }
+  .crow .cv { font-size: 15px; }
+}

@@ -9,6 +9,7 @@ import { Fotovoltaico } from "./pages/Fotovoltaico";
 import { CaldaieIdraulica } from "./pages/CaldaieIdraulica";
 import { ChiSiamo } from "./pages/ChiSiamo";
 import { Contatti } from "./pages/Contatti";
+import { FloatingWhatsApp } from "./components/shared/FloatingWhatsApp";
 import "./App.css";
 
 // Scroll Reset Component
@@ -38,6 +39,7 @@ const Layout: React.FC = () => {
         </Routes>
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </div>
   );
 };
