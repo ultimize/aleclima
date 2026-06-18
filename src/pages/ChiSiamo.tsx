@@ -1,4 +1,5 @@
 import React from "react";
+import { Seo } from "../components/shared/Seo";
 import { PageHead } from "../components/shared/PageHead";
 import { Band } from "../components/shared/Band";
 import { I } from "../components/shared/Icons";
@@ -12,6 +13,8 @@ export const ChiSiamo: React.FC = () => {
 
   return (
     <>
+      <Seo title="Chi siamo — Aleclima e Impianti, dal 2006 a Roma"
+           description="Dal 2006 al fianco di famiglie e aziende a Roma e provincia: climatizzazione, fotovoltaico, caldaie e idraulica. Consumare e consumare meglio." />
       <PageHead 
         crumb="Chi siamo" 
         kick="La nostra storia"

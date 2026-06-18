@@ -1,4 +1,5 @@
 import React from "react";
+import { Seo } from "../components/shared/Seo";
 import { useDetrazione } from "../components/shared/DetrazioneContext";
 import { PageHead } from "../components/shared/PageHead";
 import { Toggle } from "../components/shared/Toggle";
@@ -44,6 +45,8 @@ export const Fotovoltaico: React.FC = () => {
 
   return (
     <>
+      <Seo title="Fotovoltaico con accumulo a Roma da € 5.690 | Aleclima e Impianti"
+           description="Impianti fotovoltaici con accumulo chiavi in mano a Roma e provincia. Detrazione 50%, pratica ENEA inclusa e finanziamento con prima rata dopo 4 mesi." />
       <PageHead 
         crumb="Fotovoltaico" 
         kick="Il sole lavora per te"

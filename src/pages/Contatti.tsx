@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { Seo } from "../components/shared/Seo";
 import { PageHead } from "../components/shared/PageHead";
 import { supabase } from "../lib/supabase";
 import { I, Ico } from "../components/shared/Icons";
@@ -121,6 +122,8 @@ export const Contatti: React.FC = () => {
 
   return (
     <>
+      <Seo title="Contatti e preventivo gratuito — Aleclima e Impianti Roma"
+           description="Richiedi un preventivo gratuito a Roma e provincia. Chiama 327 8975018, scrivi su WhatsApp o compila il form: ti ricontattiamo subito." />
       <PageHead 
         crumb="Contatti" 
         kick="Siamo a Roma e provincia"

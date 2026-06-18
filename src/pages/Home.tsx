@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Seo } from "../components/shared/Seo";
 import { useDetrazione } from "../components/shared/DetrazioneContext";
 import { Toggle } from "../components/shared/Toggle";
 import { OfferCard, type KitType } from "../components/shared/OfferCard";
@@ -55,6 +56,8 @@ export const Home: React.FC = () => {
 
   return (
     <>
+      <Seo title="Aleclima e Impianti — Clima, Fotovoltaico e Riscaldamento a Roma"
+           description="Climatizzatori, fotovoltaico con accumulo, caldaie e idraulica a Roma e provincia. Installazione chiavi in mano, detrazione 50% e preventivo gratuito." />
       <section className="hero">
         <div className="wrap">
           <div>

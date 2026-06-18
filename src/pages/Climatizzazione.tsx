@@ -1,4 +1,5 @@
 import React from "react";
+import { Seo } from "../components/shared/Seo";
 import { useDetrazione } from "../components/shared/DetrazioneContext";
 import { PageHead } from "../components/shared/PageHead";
 import { Toggle } from "../components/shared/Toggle";
@@ -39,6 +40,8 @@ export const Climatizzazione: React.FC = () => {
 
   return (
     <>
+      <Seo title="Climatizzatori Samsung a Roma — Installazione chiavi in mano | Aleclima"
+           description="Climatizzatori Samsung 9.000 e 12.000 BTU installati a regola d'arte a Roma e provincia. Prezzo chiavi in mano, certificazione di legge e detrazione fiscale." />
       <PageHead 
         crumb="Climatizzazione" 
         kick="Comfort che fa la differenza"

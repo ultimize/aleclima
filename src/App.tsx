@@ -43,10 +43,6 @@ const Layout: React.FC = () => {
 };
 
 export default function App() {
-  useEffect(() => {
-    document.title = "Aleclima e Impianti — Clima, Fotovoltaico e Riscaldamento a Roma";
-  }, []);
-
   return (
     <DetrazioneProvider>
       <BrowserRouter>

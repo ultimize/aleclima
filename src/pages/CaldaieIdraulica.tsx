@@ -1,4 +1,5 @@
 import React from "react";
+import { Seo } from "../components/shared/Seo";
 import { PageHead } from "../components/shared/PageHead";
 import { Band } from "../components/shared/Band";
 import { I } from "../components/shared/Icons";
@@ -29,6 +30,8 @@ export const CaldaieIdraulica: React.FC = () => {
 
   return (
     <>
+      <Seo title="Caldaie, riscaldamento e idraulica a Roma — Aleclima e Impianti"
+           description="Installazione e sostituzione caldaie a condensazione, manutenzione, bollino e impianti idraulici civili e industriali a Roma. Pronto intervento." />
       <PageHead 
         crumb="Caldaie & Idraulica" 
         kick="Termoidraulica a Roma"
