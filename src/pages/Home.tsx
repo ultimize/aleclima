@@ -5,6 +5,7 @@ import { useDetrazione } from "../components/shared/DetrazioneContext";
 import { Toggle } from "../components/shared/Toggle";
 import { OfferCard, type KitType } from "../components/shared/OfferCard";
 import { Band } from "../components/shared/Band";
+import { Reviews } from "../components/shared/Reviews";
 import { I } from "../components/shared/Icons";
 
 const TEL = "327 8975018";
@@ -182,10 +183,12 @@ export const Home: React.FC = () => {
 
       <section className="section alt">
         <div className="wrap">
-          <div className="quote">
-            <div className="q">«Intervento eseguito con competenza, precisione e nei tempi concordati. Azienda seria e altamente professionale.»</div>
-            <div className="who">— Silvia Moreschi, cliente · impianto di riscaldamento</div>
+          <div className="sec-head">
+            <div className="kick">Dicono di noi</div>
+            <h2>Le recensioni dei nostri clienti</h2>
+            <p>Competenza, precisione e tempi rispettati: ecco l'esperienza di chi ha già scelto Aleclima.</p>
           </div>
+          <Reviews />
         </div>
       </section>
 

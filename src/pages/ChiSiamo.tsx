@@ -3,6 +3,7 @@ import { Seo } from "../components/shared/Seo";
 import { PageHead } from "../components/shared/PageHead";
 import { Band } from "../components/shared/Band";
 import { I } from "../components/shared/Icons";
+import { Reviews } from "../components/shared/Reviews";
 
 export const ChiSiamo: React.FC = () => {
   const advantages = [
@@ -46,6 +47,17 @@ export const ChiSiamo: React.FC = () => {
         </div>
       </section>
       
+      <section className="section alt">
+        <div className="wrap">
+          <div className="sec-head">
+            <div className="kick">Dicono di noi</div>
+            <h2>Le recensioni dei nostri clienti</h2>
+            <p>Competenza, precisione e tempi rispettati: ecco l'esperienza di chi ha già scelto Aleclima.</p>
+          </div>
+          <Reviews />
+        </div>
+      </section>
+
       <Band 
         title="Parliamo del tuo progetto" 
         text="Dal sopralluogo all'installazione, seguiamo ogni fase con professionalità e materiali di alta qualità." 

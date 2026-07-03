@@ -6,6 +6,7 @@ import { Toggle } from "../components/shared/Toggle";
 import { OfferCard, type KitType } from "../components/shared/OfferCard";
 import { Band } from "../components/shared/Band";
 import { I } from "../components/shared/Icons";
+import { Reviews } from "../components/shared/Reviews";
 
 const fvKits: KitType[] = [
   { 
@@ -80,6 +81,17 @@ export const Fotovoltaico: React.FC = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section alt">
+        <div className="wrap">
+          <div className="sec-head">
+            <div className="kick">Dicono di noi</div>
+            <h2>Le recensioni dei nostri clienti</h2>
+            <p>Competenza, precisione e tempi rispettati: ecco l'esperienza di chi ha già scelto Aleclima.</p>
+          </div>
+          <Reviews />
         </div>
       </section>
 

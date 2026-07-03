@@ -4,6 +4,7 @@ import { Seo } from "../components/shared/Seo";
 import { PageHead } from "../components/shared/PageHead";
 import { supabase } from "../lib/supabase";
 import { I, Ico } from "../components/shared/Icons";
+import { Reviews } from "../components/shared/Reviews";
 
 const TEL = "327 8975018";
 const TEL_RAW = "393278975018";
@@ -326,6 +327,17 @@ export const Contatti: React.FC = () => {
           </div>
         </div>
       </section>
+      <section className="section alt">
+        <div className="wrap">
+          <div className="sec-head">
+            <div className="kick">Dicono di noi</div>
+            <h2>Le recensioni dei nostri clienti</h2>
+            <p>Competenza, precisione e tempi rispettati: ecco l'esperienza di chi ha già scelto Aleclima.</p>
+          </div>
+          <Reviews />
+        </div>
+      </section>
+
     </>
   );
 };

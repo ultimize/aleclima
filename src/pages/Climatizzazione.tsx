@@ -5,6 +5,7 @@ import { PageHead } from "../components/shared/PageHead";
 import { Toggle } from "../components/shared/Toggle";
 import { OfferCard, type KitType } from "../components/shared/OfferCard";
 import { Band } from "../components/shared/Band";
+import { Reviews } from "../components/shared/Reviews";
 
 const climaKits: KitType[] = [
   { 
@@ -62,6 +63,17 @@ export const Climatizzazione: React.FC = () => {
         </div>
       </section>
       
+      <section className="section alt">
+        <div className="wrap">
+          <div className="sec-head">
+            <div className="kick">Dicono di noi</div>
+            <h2>Le recensioni dei nostri clienti</h2>
+            <p>Competenza, precisione e tempi rispettati: ecco l'esperienza di chi ha già scelto Aleclima.</p>
+          </div>
+          <Reviews />
+        </div>
+      </section>
+
       <Band 
         title="Vuoi il clima perfetto in casa?" 
         text="Garanzia ufficiale Samsung, installazione rapida e pulita, assistenza post-vendita dedicata." 
