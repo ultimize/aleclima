@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation";
 import NextImage from "next/image";
 import { getSupabase } from "@/lib/supabase/browser";
 import { RichEditor, uploadImmagine } from "./RichEditor";
-import type { Articolo } from "@/lib/blog";
+import { SeoPanel } from "./SeoPanel";
+import { FaqEditor } from "./FaqEditor";
+import type { Articolo, FaqItem } from "@/lib/blog";
 
 /** Titolo -> slug: minuscolo, senza accenti, parole separate da trattino. */
 export function slugify(s: string): string {
@@ -33,6 +35,8 @@ export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
     cover_alt: articolo?.cover_alt ?? "",
     meta_title: articolo?.meta_title ?? "",
     meta_description: articolo?.meta_description ?? "",
+    keyword: articolo?.keyword ?? "",
+    faq: articolo?.faq ?? [],
     stato: articolo?.stato ?? "bozza",
   });
 
@@ -80,6 +84,9 @@ export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
       cover_alt: f.cover_alt?.trim() || null,
       meta_title: f.meta_title?.trim() || null,
       meta_description: f.meta_description?.trim() || null,
+      keyword: f.keyword?.trim() || null,
+      // scarta le righe lasciate a meta'
+      faq: (f.faq ?? []).filter((q) => q.domanda.trim() && q.risposta.trim()),
       stato,
     };
 
@@ -159,6 +166,21 @@ export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
             placeholder="Una o due righe che compaiono nella lista del blog."
           />
         </div>
+
+        <div>
+          <label htmlFor="keyword">Parola chiave principale</label>
+          <input
+            id="keyword"
+            type="text"
+            value={f.keyword ?? ""}
+            onChange={(e) => set("keyword", e.target.value)}
+            placeholder="Es. climatizzatore Roma"
+          />
+          <div className="hint">
+            La ricerca su cui vuoi posizionarti. Non viene mostrata ai lettori: serve
+            ai controlli qui sotto.
+          </div>
+        </div>
       </div>
 
       <div className="admin-card">
@@ -203,6 +225,24 @@ export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
           onChange={(html) => set("contenuto_html", html)}
         />
       </div>
+
+      <div className="admin-card">
+        <FaqEditor faq={f.faq ?? []} onChange={(faq) => set("faq", faq)} />
+      </div>
+
+      <SeoPanel
+        dati={{
+          titolo: f.titolo,
+          slug: f.slug,
+          keyword: f.keyword ?? "",
+          sommario: f.sommario ?? "",
+          metaTitle: f.meta_title ?? "",
+          metaDescription: f.meta_description ?? "",
+          contenutoHtml: f.contenuto_html ?? "",
+          coverAlt: f.cover_alt ?? "",
+          hasCover: Boolean(f.cover_url),
+        }}
+      />
 
       <div className="admin-card admin-form">
         <div>

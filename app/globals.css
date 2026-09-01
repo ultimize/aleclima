@@ -1335,3 +1335,44 @@ footer .small {
   font-weight: 600;
   text-decoration: none;
 }
+
+/* --- FAQ in fondo all'articolo --- */
+
+.article-faq {
+  margin-top: 46px;
+  padding-top: 30px;
+  border-top: 1px solid var(--linea);
+}
+.article-faq h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px;
+  color: var(--notte);
+  margin-bottom: 16px;
+}
+.article-faq details {
+  border: 1px solid var(--linea);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+.article-faq details[open] { background: var(--nebbia); }
+.article-faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--notte);
+  list-style: none;
+}
+.article-faq summary::-webkit-details-marker { display: none; }
+.article-faq summary::after {
+  content: "+";
+  float: right;
+  color: var(--blu);
+  font-weight: 700;
+}
+.article-faq details[open] summary::after { content: "−"; }
+.article-faq details p {
+  margin-top: 10px;
+  color: var(--grigio);
+  line-height: 1.7;
+}

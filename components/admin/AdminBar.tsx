@@ -19,6 +19,7 @@ export function AdminBar({ email }: { email?: string | null }) {
         <strong>Aleclima · Redazione</strong>
         <nav>
           <Link href="/admin">Articoli</Link>
+          <Link href="/admin/lead">Richieste</Link>
           <Link href="/blog" target="_blank">Vedi il blog</Link>
           {email && <span style={{ color: "#7f97b3" }}>{email}</span>}
           <button onClick={logout} type="button">Esci</button>

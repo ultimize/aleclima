@@ -83,6 +83,23 @@ export default async function ArticoloPage({
     },
   };
 
+  // FAQPage: e' cio' che porta l'articolo nei riquadri di Google e nelle risposte AI
+  const faq = Array.isArray(a.faq)
+    ? a.faq.filter((q) => q?.domanda?.trim() && q?.risposta?.trim())
+    : [];
+
+  const faqLd = faq.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faq.map((q) => ({
+          "@type": "Question",
+          name: q.domanda,
+          acceptedAnswer: { "@type": "Answer", text: q.risposta },
+        })),
+      }
+    : null;
+
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -103,6 +120,12 @@ export default async function ArticoloPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
+      {faqLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        />
+      )}
 
       <section className="phead">
         <div className="wrap">
@@ -142,6 +165,18 @@ export default async function ArticoloPage({
             className="article-body"
             dangerouslySetInnerHTML={{ __html: a.contenuto_html }}
           />
+          {faq.length > 0 && (
+            <section className="article-faq">
+              <h2>Domande frequenti</h2>
+              {faq.map((q, i) => (
+                <details key={i}>
+                  <summary>{q.domanda}</summary>
+                  <p>{q.risposta}</p>
+                </details>
+              ))}
+            </section>
+          )}
+
           <p className="article-back">
             <Link href="/blog">← Torna a tutti gli articoli</Link>
           </p>

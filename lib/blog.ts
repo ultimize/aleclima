@@ -1,5 +1,10 @@
 import { getSupabasePublic } from "@/lib/supabase/public";
 
+export interface FaqItem {
+  domanda: string;
+  risposta: string;
+}
+
 export interface Articolo {
   id: string;
   slug: string;
@@ -10,6 +15,8 @@ export interface Articolo {
   cover_alt: string | null;
   meta_title: string | null;
   meta_description: string | null;
+  keyword: string | null;
+  faq: FaqItem[];
   stato: "bozza" | "pubblicato";
   published_at: string | null;
   created_at: string;
