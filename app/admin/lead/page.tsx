@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { AdminBar } from "@/components/admin/AdminBar";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { LeadTable, type Lead } from "@/components/admin/LeadTable";
 
 export const dynamic = "force-dynamic";
@@ -16,21 +16,12 @@ export default async function LeadPage() {
     .order("created_at", { ascending: false });
 
   return (
-    <>
-      <AdminBar email={user?.email} />
-      <div className="admin-main">
-        <div className="wrap">
-          <div className="admin-head">
-            <h1>Richieste di preventivo</h1>
-          </div>
-
-          {error ? (
-            <div className="admin-msg err">Errore nel caricamento: {error.message}</div>
-          ) : (
-            <LeadTable iniziali={(data ?? []) as Lead[]} />
-          )}
-        </div>
-      </div>
-    </>
+    <AdminShell email={user?.email} titolo="Richieste di preventivo">
+      {error ? (
+        <div className="admin-msg err">Errore nel caricamento: {error.message}</div>
+      ) : (
+        <LeadTable iniziali={(data ?? []) as Lead[]} />
+      )}
+    </AdminShell>
   );
 }

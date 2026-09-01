@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { AdminBar } from "@/components/admin/AdminBar";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { ArticoloForm } from "@/components/admin/ArticoloForm";
 import type { Articolo } from "@/lib/blog";
 
@@ -25,27 +25,22 @@ export default async function EditorPage({
   }
 
   return (
-    <>
-      <AdminBar email={user?.email} />
-      <div className="admin-main">
-        <div className="wrap">
-          <div className="admin-head">
-            <div>
-              <Link href="/admin" style={{ fontSize: 14, color: "var(--blu)", textDecoration: "none" }}>
-                ← Tutti gli articoli
-              </Link>
-              <h1>{articolo ? "Modifica articolo" : "Nuovo articolo"}</h1>
-            </div>
-            {articolo && (
-              <span className={`badge ${articolo.stato}`}>
-                {articolo.stato === "pubblicato" ? "Pubblicato" : "Bozza"}
-              </span>
-            )}
-          </div>
+    <AdminShell
+      email={user?.email}
+      titolo={articolo ? "Modifica articolo" : "Nuovo articolo"}
+      azione={
+        articolo ? (
+          <span className={`pill ${articolo.stato}`}>
+            {articolo.stato === "pubblicato" ? "pubblicato" : "bozza"}
+          </span>
+        ) : undefined
+      }
+    >
+      <p className="torna">
+        <Link href="/admin/articoli">← Tutti gli articoli</Link>
+      </p>
 
-          <ArticoloForm articolo={articolo} />
-        </div>
-      </div>
-    </>
+      <ArticoloForm articolo={articolo} />
+    </AdminShell>
   );
 }
