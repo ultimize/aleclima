@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { getSupabase } from "@/lib/supabase/browser";
@@ -38,13 +39,20 @@ export function AdminShell({
   return (
     <div className="ash">
       <aside className={`ash-side${menuAperto ? " aperto" : ""}`}>
-        <div className="ash-brand">
-          <span className="ash-logo">A</span>
-          <div>
-            <strong>Aleclima</strong>
-            <small>Redazione</small>
-          </div>
-        </div>
+        <Link href="/admin" className="ash-brand">
+          {/* piastra bianca come nel footer del sito: il logo e' a colori e
+              sul blu notte non si leggerebbe */}
+          <span className="ash-logo">
+            <Image
+              src="/aleclima-logo.png"
+              alt="Aleclima e Impianti"
+              width={922}
+              height={473}
+              priority
+            />
+          </span>
+          <small>Redazione</small>
+        </Link>
 
         <nav className="ash-nav">
           {VOCI.map((v) => (
