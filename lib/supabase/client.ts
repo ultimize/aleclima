@@ -1,0 +1,11 @@
+"use client";
+
+import { createBrowserClient } from "@supabase/ssr";
+
+/** Client Supabase per i componenti che girano nel browser (form lead, login admin). */
+export function createClient() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+}

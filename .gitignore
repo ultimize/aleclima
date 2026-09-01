@@ -29,3 +29,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Next.js
+/.next/
+/out/
+next-env.d.ts
+
+# cartella di scarto della migrazione (da rimuovere a mano)
+/_to_delete/
