@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { StatTile } from "@/components/admin/StatTile";
 import { LeadChart, type PuntoMese } from "@/components/admin/LeadChart";
+import { TrafficoCard } from "@/components/admin/TrafficoCard";
 import { formatData } from "@/lib/blog";
 
 export const dynamic = "force-dynamic";
@@ -121,6 +123,11 @@ export default async function Dashboard() {
       <div className="card">
         <LeadChart dati={serie} />
       </div>
+
+      <h2 className="sezione">Traffico del sito</h2>
+      <Suspense fallback={<div className="card"><p className="vuoto">Carico i dati di Analytics…</p></div>}>
+        <TrafficoCard />
+      </Suspense>
 
       <div className="due-colonne">
         <section className="card">

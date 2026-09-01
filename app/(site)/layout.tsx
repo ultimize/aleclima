@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { FloatingWhatsApp } from "@/components/shared/FloatingWhatsApp";
 import { CookieConsent } from "@/components/shared/CookieConsent";
 import { DetrazioneProvider } from "@/components/shared/DetrazioneContext";
+import { Analytics } from "@/components/shared/Analytics";
 
 /** Dati strutturati dell'attivita': erano inline in index.html, ora vivono qui. */
 const jsonLd = {
@@ -49,6 +50,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <FloatingWhatsApp />
         <CookieConsent />
+        <Analytics />
       </div>
     </DetrazioneProvider>
   );
