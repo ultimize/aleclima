@@ -13,7 +13,7 @@ const jsonLd = {
   image: "https://www.aleclima.eu/og-image.jpg",
   logo: "https://www.aleclima.eu/aleclima-logo.png",
   url: "https://www.aleclima.eu/",
-  telephone: "+39 327 8975018",
+  telephone: "+39 352 283 8561",
   email: "aleclimaimpiantisrls@gmail.com",
   priceRange: "€€",
   vatID: "IT15597681004",

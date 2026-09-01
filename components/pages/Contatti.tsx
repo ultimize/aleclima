@@ -6,8 +6,8 @@ import { getSupabase } from "@/lib/supabase/browser";
 import { I, Ico } from "@/components/shared/Icons";
 import { Reviews } from "@/components/shared/Reviews";
 
-const TEL = "327 8975018";
-const TEL_RAW = "393278975018";
+const TEL = "352 283 8561";
+const TEL_RAW = "393522838561";
 const WA = "393479576619";
 const EMAIL = "aleclimaimpiantisrls@gmail.com";
 
