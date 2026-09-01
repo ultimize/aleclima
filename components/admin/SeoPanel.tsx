@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { analizza, punteggio, linkInterniMancanti, type DatiArticolo } from "@/lib/seo";
+import { analizza, punteggio, linkInterniMancanti, titoloEffettivo, type DatiArticolo } from "@/lib/seo";
 
 const SITE = "www.aleclima.eu";
 
@@ -10,7 +10,7 @@ export function SeoPanel({ dati }: { dati: DatiArticolo }) {
   const score = punteggio(controlli);
   const mancanti = useMemo(() => linkInterniMancanti(dati.contenutoHtml), [dati.contenutoHtml]);
 
-  const titleAnteprima = (dati.metaTitle || dati.titolo || "Titolo dell'articolo").slice(0, 60);
+  const titleAnteprima = titoloEffettivo(dati.titolo || "Titolo dell'articolo", dati.metaTitle).slice(0, 60);
   const descAnteprima = (dati.metaDescription || dati.sommario || "").slice(0, 155);
 
   const livello = score >= 80 ? "buono" : score >= 55 ? "medio" : "scarso";

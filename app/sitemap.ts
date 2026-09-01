@@ -3,17 +3,20 @@ import { getSupabasePublic } from "@/lib/supabase/public";
 
 const SITE = "https://www.aleclima.eu";
 
-export const revalidate = 3600;
+// un articolo appena pubblicato deve entrare subito nel sitemap:
+// con un'ora di cache Google lo scopriva molto dopo
+export const revalidate = 60;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const oggi = new Date();
   const statiche: MetadataRoute.Sitemap = [
-    { url: `${SITE}/`, priority: 1.0, changeFrequency: "monthly" },
-    { url: `${SITE}/climatizzazione`, priority: 0.9, changeFrequency: "monthly" },
-    { url: `${SITE}/fotovoltaico`, priority: 0.9, changeFrequency: "monthly" },
-    { url: `${SITE}/caldaie-idraulica`, priority: 0.8, changeFrequency: "monthly" },
-    { url: `${SITE}/chi-siamo`, priority: 0.6, changeFrequency: "yearly" },
-    { url: `${SITE}/contatti`, priority: 0.7, changeFrequency: "yearly" },
-    { url: `${SITE}/blog`, priority: 0.8, changeFrequency: "weekly" },
+    { url: `${SITE}/`, priority: 1.0, changeFrequency: "monthly", lastModified: oggi },
+    { url: `${SITE}/climatizzazione`, priority: 0.9, changeFrequency: "monthly" , lastModified: oggi },
+    { url: `${SITE}/fotovoltaico`, priority: 0.9, changeFrequency: "monthly" , lastModified: oggi },
+    { url: `${SITE}/caldaie-idraulica`, priority: 0.8, changeFrequency: "monthly" , lastModified: oggi },
+    { url: `${SITE}/chi-siamo`, priority: 0.6, changeFrequency: "yearly" , lastModified: oggi },
+    { url: `${SITE}/contatti`, priority: 0.7, changeFrequency: "yearly" , lastModified: oggi },
+    { url: `${SITE}/blog`, priority: 0.8, changeFrequency: "weekly" , lastModified: oggi },
   ];
 
   // se Supabase non e' configurato il sitemap resta alle sole pagine statiche

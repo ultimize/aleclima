@@ -37,6 +37,22 @@ export const PAGINE_INTERNE: { href: string; nome: string; termini: string[] }[]
   },
 ];
 
+export const BRAND = "Aleclima e Impianti";
+
+/**
+ * Il titolo che finisce davvero nel tag <title>.
+ * Il brand si aggiunge solo se non c'e' gia': altrimenti si ottiene
+ * "... | Aleclima | Aleclima e Impianti", che spreca i caratteri utili
+ * in SERP e sembra sciatto.
+ * Usata sia dalla pagina pubblica sia dal controllo SEO, cosi' l'editor
+ * misura la stringa reale e non un'approssimazione.
+ */
+export function titoloEffettivo(titolo: string, metaTitle?: string | null): string {
+  const base = (metaTitle || titolo || "").trim();
+  if (!base) return BRAND;
+  return /aleclima/i.test(base) ? base : `${base} — ${BRAND}`;
+}
+
 export function testoDaHtml(html: string): string {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
@@ -116,7 +132,7 @@ export interface DatiArticolo {
 export function analizza(a: DatiArticolo): Controllo[] {
   const c: Controllo[] = [];
   const kw = a.keyword.trim();
-  const titleEff = (a.metaTitle || a.titolo).trim();
+  const titleEff = titoloEffettivo(a.titolo, a.metaTitle);
   const descEff = (a.metaDescription || a.sommario).trim();
   const parole = contaParole(a.contenutoHtml);
 
@@ -179,7 +195,7 @@ export function analizza(a: DatiArticolo): Controllo[] {
     dettaglio:
       lenT === 0
         ? "Manca il titolo."
-        : `${lenT} caratteri. ` +
+        : `${lenT} caratteri, brand incluso. ` +
           (lenT < 30 ? "Corto: hai spazio per essere piu' specifico." : lenT <= 60 ? "Nella misura giusta." : "Oltre i 60: Google lo tagliera'."),
   });
 

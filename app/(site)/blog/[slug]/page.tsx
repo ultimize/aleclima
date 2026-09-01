@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Band } from "@/components/shared/Band";
 import { getSupabasePublic } from "@/lib/supabase/public";
 import { getArticolo, formatData, tempoLettura } from "@/lib/blog";
+import { titoloEffettivo } from "@/lib/seo";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -32,11 +33,11 @@ export async function generateMetadata({
   const a = await getArticolo(slug);
   if (!a) return { title: "Articolo non trovato" };
 
-  const title = a.meta_title || a.titolo;
+  const title = titoloEffettivo(a.titolo, a.meta_title);
   const description = a.meta_description || a.sommario || undefined;
 
   return {
-    title: { absolute: `${title} | Aleclima e Impianti` },
+    title: { absolute: title },
     description,
     alternates: { canonical: `/blog/${a.slug}` },
     openGraph: {
