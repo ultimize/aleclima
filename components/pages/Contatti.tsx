@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { PageHead } from "@/components/shared/PageHead";
-import { supabase } from "@/lib/supabase/browser";
+import { getSupabase } from "@/lib/supabase/browser";
 import { I, Ico } from "@/components/shared/Icons";
 import { Reviews } from "@/components/shared/Reviews";
 
@@ -89,7 +89,7 @@ export const Contatti: React.FC = () => {
     }
 
     try {
-      const { error } = await supabase.from("lead_preventivi").insert({
+      const { error } = await getSupabase().from("lead_preventivi").insert({
         nome: f.nome.trim(),
         telefono: cleanTel,
         email: cleanEmail,

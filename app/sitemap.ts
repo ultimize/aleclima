@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { supabasePublic } from "@/lib/supabase/public";
+import { getSupabasePublic } from "@/lib/supabase/public";
 
 const SITE = "https://www.aleclima.eu";
 
@@ -16,7 +16,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/blog`, priority: 0.8, changeFrequency: "weekly" },
   ];
 
-  const { data } = await supabasePublic
+  // se Supabase non e' configurato il sitemap resta alle sole pagine statiche
+  const supabase = getSupabasePublic();
+  if (!supabase) return statiche;
+
+  const { data } = await supabase
     .from("articoli")
     .select("slug, updated_at, published_at")
     .eq("stato", "pubblicato")

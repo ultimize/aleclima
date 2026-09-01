@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase/browser";
+import { getSupabase } from "@/lib/supabase/browser";
 
 export function AdminBar({ email }: { email?: string | null }) {
   const router = useRouter();
 
   const logout = async () => {
-    await supabase.auth.signOut();
+    await getSupabase().auth.signOut();
     router.push("/admin/login");
     router.refresh();
   };

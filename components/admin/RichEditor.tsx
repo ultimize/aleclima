@@ -5,20 +5,20 @@ import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import { useCallback, useRef } from "react";
-import { supabase } from "@/lib/supabase/browser";
+import { getSupabase } from "@/lib/supabase/browser";
 
 /** Carica un file nel bucket "blog" e ritorna l'URL pubblico. */
 export async function uploadImmagine(file: File): Promise<string> {
   const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
   const nome = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
 
-  const { error } = await supabase.storage.from("blog").upload(nome, file, {
+  const { error } = await getSupabase().storage.from("blog").upload(nome, file, {
     cacheControl: "31536000",
     upsert: false,
   });
   if (error) throw new Error(error.message);
 
-  const { data } = supabase.storage.from("blog").getPublicUrl(nome);
+  const { data } = getSupabase().storage.from("blog").getPublicUrl(nome);
   return data.publicUrl;
 }
 

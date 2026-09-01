@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import NextImage from "next/image";
-import { supabase } from "@/lib/supabase/browser";
+import { getSupabase } from "@/lib/supabase/browser";
 import { RichEditor, uploadImmagine } from "./RichEditor";
 import type { Articolo } from "@/lib/blog";
 
@@ -84,8 +84,8 @@ export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
     };
 
     const res = isNuovo
-      ? await supabase.from("articoli").insert(payload).select("id").single()
-      : await supabase.from("articoli").update(payload).eq("id", articolo!.id).select("id").single();
+      ? await getSupabase().from("articoli").insert(payload).select("id").single()
+      : await getSupabase().from("articoli").update(payload).eq("id", articolo!.id).select("id").single();
 
     setSaving(false);
 
@@ -115,7 +115,7 @@ export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
   const elimina = async () => {
     if (!articolo) return;
     if (!window.confirm(`Eliminare definitivamente "${articolo.titolo}"?`)) return;
-    const { error } = await supabase.from("articoli").delete().eq("id", articolo.id);
+    const { error } = await getSupabase().from("articoli").delete().eq("id", articolo.id);
     if (error) return setMsg({ tipo: "err", testo: `Eliminazione non riuscita: ${error.message}` });
     router.push("/admin");
     router.refresh();

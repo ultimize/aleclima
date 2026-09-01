@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { supabase } from "@/lib/supabase/browser";
+import { getSupabase } from "@/lib/supabase/browser";
 
 function LoginForm() {
   const router = useRouter();
@@ -17,7 +17,7 @@ function LoginForm() {
     setLoading(true);
     setErr(null);
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await getSupabase().auth.signInWithPassword({ email, password });
 
     if (error) {
       // messaggio generico: non riveliamo se l'email esiste

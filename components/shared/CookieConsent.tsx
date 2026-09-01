@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { supabase } from "@/lib/supabase/browser";
+import { getSupabase } from "@/lib/supabase/browser";
 
 const COOKIE_NAME = "aleclima_cookie_consent";
 
@@ -114,7 +114,7 @@ export const CookieConsent: React.FC = () => {
 
       // Write to Supabase DB (WITHOUT .select() to prevent RLS errors)
       try {
-        await supabase.from("cookie_consents").insert({
+        await getSupabase().from("cookie_consents").insert({
           consent_id: id,
           necessary: true,
           analytics: analyticsVal,
@@ -148,7 +148,7 @@ export const CookieConsent: React.FC = () => {
   const handleWithdrawConsent = async () => {
     if (consentId) {
       try {
-        await supabase.from("cookie_consents").delete().eq("consent_id", consentId);
+        await getSupabase().from("cookie_consents").delete().eq("consent_id", consentId);
       } catch (err) {
         console.error("Error deleting cookie consent from Supabase:", err);
       }

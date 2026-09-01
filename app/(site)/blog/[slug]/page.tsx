@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Band } from "@/components/shared/Band";
-import { supabasePublic } from "@/lib/supabase/public";
+import { getSupabasePublic } from "@/lib/supabase/public";
 import { getArticolo, formatData, tempoLettura } from "@/lib/blog";
 
 export const revalidate = 60;
@@ -13,7 +13,10 @@ const SITE = "https://www.aleclima.eu";
 
 /** Pre-genera al build gli articoli gia' pubblicati; i nuovi arrivano via ISR. */
 export async function generateStaticParams() {
-  const { data } = await supabasePublic
+  const supabase = getSupabasePublic();
+  if (!supabase) return [];
+
+  const { data } = await supabase
     .from("articoli")
     .select("slug")
     .eq("stato", "pubblicato");

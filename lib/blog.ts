@@ -1,4 +1,4 @@
-import { supabasePublic } from "@/lib/supabase/public";
+import { getSupabasePublic } from "@/lib/supabase/public";
 
 export interface Articolo {
   id: string;
@@ -23,7 +23,10 @@ export type ArticoloCard = Pick<
 >;
 
 export async function getArticoliPubblicati(): Promise<ArticoloCard[]> {
-  const { data, error } = await supabasePublic
+  const supabase = getSupabasePublic();
+  if (!supabase) return [];
+
+  const { data, error } = await supabase
     .from("articoli")
     .select("id, slug, titolo, sommario, cover_url, cover_alt, published_at")
     .eq("stato", "pubblicato")
@@ -37,7 +40,10 @@ export async function getArticoliPubblicati(): Promise<ArticoloCard[]> {
 }
 
 export async function getArticolo(slug: string): Promise<Articolo | null> {
-  const { data, error } = await supabasePublic
+  const supabase = getSupabasePublic();
+  if (!supabase) return null;
+
+  const { data, error } = await supabase
     .from("articoli")
     .select("*")
     .eq("slug", slug)
