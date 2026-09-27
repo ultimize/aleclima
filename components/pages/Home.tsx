@@ -53,7 +53,7 @@ export const Home: React.FC = () => {
     { ic: I.shield, t: "Installazione certificata", d: "Impianti a norma con dichiarazione di conformità e libretto." },
     { ic: I.check, t: "Detrazione fiscale gestita", d: "Ci occupiamo noi della pratica ENEA e del recupero del 50%." },
     { ic: I.bolt, t: "Interventi rapidi a Roma", d: "Sopralluoghi veloci e assistenza tecnica qualificata in zona." },
-    { ic: I.tools, t: "30+ anni di esperienza", d: "Dal 2006 al fianco di famiglie e aziende del territorio." },
+    { ic: I.tools, t: "Dal 2006 in attività", d: "Al fianco di famiglie e aziende di Roma e provincia." },
     { ic: I.wa, t: "Finanziamento su misura", d: "Paghi a rate, prima rata anche dopo 4 mesi dall'impianto." },
   ];
 
@@ -65,7 +65,7 @@ export const Home: React.FC = () => {
             <span className="eyebrow">
               <span className="dot" /> Roma e provincia · sopralluogo gratuito
             </span>
-            <h1>Il risparmio a portata di <span className="hl">scelta</span>.</h1>
+            <h1>Clima e fotovoltaico a Roma: il risparmio a portata di <span className="hl">scelta</span>.</h1>
             <p className="lead">
               Climatizzazione, fotovoltaico e riscaldamento chiavi in mano. Consumare e consumare meglio: impianti efficienti che ti ripagano, con la detrazione fiscale gestita da noi.
             </p>

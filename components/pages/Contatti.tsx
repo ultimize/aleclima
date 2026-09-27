@@ -177,15 +177,7 @@ export const Contatti: React.FC = () => {
               <div className="crow">
                 <div className="ci">{I.pin}</div>
                 <div>
-                  <div className="ck">Sede operativa</div>
-                  <div className="cv">Via Casilina 2187, 00132 Roma</div>
-                </div>
-              </div>
-              
-              <div className="crow">
-                <div className="ci">{I.pin}</div>
-                <div>
-                  <div className="ck">Sede legale</div>
+                  <div className="ck">Sede</div>
                   <div className="cv">Via Colle Pallone Nuovo 26, 00039 Zagarolo (RM)</div>
                 </div>
               </div>

@@ -61,9 +61,7 @@ export const Footer: React.FC = () => {
           <div>
             <h4>Contatti</h4>
             <p className="small">
-              Via Casilina 2187, 00132 Roma
-              <br />
-              Sede legale: Via Colle Pallone Nuovo 26, Zagarolo (RM)
+              Via Colle Pallone Nuovo 26, 00039 Zagarolo (RM)
               <br />
               <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
               <br />

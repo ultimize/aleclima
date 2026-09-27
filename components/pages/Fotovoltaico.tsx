@@ -8,6 +8,7 @@ import { OfferCard, type KitType } from "@/components/shared/OfferCard";
 import { Band } from "@/components/shared/Band";
 import { I } from "@/components/shared/Icons";
 import { Reviews } from "@/components/shared/Reviews";
+import { ServizioDettagli, FOTO } from "@/components/shared/ServizioDettagli";
 
 const fvKits: KitType[] = [
   { 
@@ -82,6 +83,29 @@ export const Fotovoltaico: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <ServizioDettagli
+        servizio="Installazione impianti fotovoltaici con accumulo"
+        incluso={[
+          "Sopralluogo gratuito e dimensionamento sui tuoi consumi",
+          "Fornitura di pannelli, inverter e batteria di accumulo",
+          "Installazione, collaudo e messa in servizio",
+          "Dichiarazione di conformità dell'impianto",
+          "Pratica ENEA per la detrazione fiscale del 50%",
+          "IVA inclusa, nessun costo nascosto",
+          "Finanziamento con prima rata dopo 4 mesi",
+          "Energia anche di notte grazie all'accumulo",
+        ]}
+        tempi="un impianto fotovoltaico con accumulo si installa in 1-2 giorni lavorativi, in base al tetto e al numero di moduli."
+        faq={[
+          { q: "Quanto tempo serve per installare il fotovoltaico?", a: "Generalmente tra 1 e 2 giorni lavorativi, a seconda della complessità del tetto e del numero di moduli da posare." },
+          { q: "Cosa è incluso nel prezzo?", a: "Sopralluogo, pannelli, inverter e accumulo, installazione, collaudo, dichiarazione di conformità, pratica ENEA per la detrazione e IVA. Il prezzo del preventivo è quello finale." },
+          { q: "Come funziona la detrazione del 50%?", a: "Recuperi metà della spesa in rate annuali sulle tasse. La pratica ENEA è inclusa e la gestiamo noi: su un impianto da 9.800 euro recuperi 4.900 euro." },
+          { q: "Posso pagare a rate?", a: "Sì, l'impianto è finanziabile con rate su misura e la prima rata arriva dopo 4 mesi dall'installazione." },
+          { q: "A cosa serve la batteria di accumulo?", a: "Conserva l'energia prodotta di giorno e non consumata, così la usi anche la sera e di notte: più autoconsumo e bollette più basse." },
+          { q: "In quali zone installate?", a: "Roma e tutta la provincia. La nostra sede è a Zagarolo, in Via Colle Pallone Nuovo 26." },
+        ]}
+      />
 
       <section className="section alt">
         <div className="wrap">

@@ -24,7 +24,7 @@ export const ChiSiamo: React.FC = () => {
       <section className="section">
         <div className="wrap" style={{ maxWidth: 820 }}>
           <p style={{ fontSize: 18, color: "#33485e", marginBottom: 20 }}>
-            Con oltre <b>30 anni di esperienza</b> nel settore, ci siamo distinti per la capacità di offrire prodotti e servizi
+            Dal <b>2006</b> nel settore, ci siamo distinti per la capacità di offrire prodotti e servizi
             che rispondono in modo efficace, innovativo e professionale alle esigenze sempre diverse dei nostri clienti.
           </p>
           <p style={{ fontSize: 18, color: "#33485e", marginBottom: 30 }}>

@@ -1376,3 +1376,21 @@ footer .small {
   color: var(--grigio);
   line-height: 1.7;
 }
+
+/* foto lavori nelle pagine servizio */
+.lavori {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+.lavori img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+@media (max-width: 900px) {
+  .lavori { grid-template-columns: 1fr 1fr; gap: 10px; }
+}
