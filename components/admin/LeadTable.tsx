@@ -92,6 +92,19 @@ export function LeadTable({ iniziali }: { iniziali: Lead[] }) {
     }
   };
 
+  const elimina = async (l: Lead) => {
+    if (!window.confirm(`Eliminare definitivamente la richiesta di ${l.nome}? Non si può annullare.`)) return;
+    // .select(): se la RLS blocca il DELETE non c'e' errore, solo 0 righe cancellate
+    const { data, error } = await getSupabase().from("lead_preventivi").delete().eq("id", l.id).select("id");
+    if (error || !data?.length) {
+      setMsg(`Eliminazione non riuscita: ${error?.message ?? "permesso negato dal database"}`);
+      return;
+    }
+    setLead((prev) => prev.filter((x) => x.id !== l.id));
+    setAperto(null);
+    setMsg(null);
+  };
+
   const esportaCsv = () => {
     const intestazioni = [
       "Data", "Nome", "Telefono", "Email", "Servizio", "Messaggio",
@@ -192,6 +205,14 @@ export function LeadTable({ iniziali }: { iniziali: Lead[] }) {
                         {l.hl_error && (
                           <p className="lead-errore">Errore consegna: {l.hl_error}</p>
                         )}
+                        <button
+                          type="button"
+                          className="link-btn"
+                          style={{ color: "#a12525", marginTop: 10 }}
+                          onClick={() => elimina(l)}
+                        >
+                          Elimina richiesta
+                        </button>
                       </div>
                     )}
                   </td>
