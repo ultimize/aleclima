@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import { OG_IMAGE } from "@/lib/meta";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.aleclima.eu"),
@@ -30,20 +31,13 @@ export const metadata: Metadata = {
     title: "Aleclima e Impianti — Clima, Fotovoltaico e Riscaldamento a Roma",
     description:
       "Impianti chiavi in mano a Roma e provincia. Fotovoltaico con accumulo, climatizzatori Samsung e caldaie, con detrazione fiscale 50% e preventivo gratuito.",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Aleclima e Impianti — fotovoltaico, clima e riscaldamento a Roma",
-      },
-    ],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "Aleclima e Impianti — Clima, Fotovoltaico e Riscaldamento a Roma",
     description: "Impianti chiavi in mano a Roma e provincia. Detrazione fiscale 50% e preventivo gratuito.",
-    images: ["/og-image.jpg"],
+    images: [OG_IMAGE.url],
   },
 };
 

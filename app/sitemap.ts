@@ -3,20 +3,22 @@ import { getSupabasePublic } from "@/lib/supabase/public";
 
 const SITE = "https://www.aleclima.eu";
 
-// un articolo appena pubblicato deve entrare subito nel sitemap:
-// con un'ora di cache Google lo scopriva molto dopo
-export const revalidate = 60;
+// un articolo appena pubblicato deve entrare subito nel sitemap. Con
+// revalidate = 60 Vercel continuava a servire la versione del deploy (ferma
+// per settimane); gli articoli si salvano dal browser, quindi non c'e' un
+// revalidatePath da chiamare. ponytail: una query a Supabase per ogni lettura
+// del sitemap, trascurabile ai volumi dei crawler.
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const oggi = new Date();
   const statiche: MetadataRoute.Sitemap = [
-    { url: `${SITE}/`, priority: 1.0, changeFrequency: "monthly", lastModified: oggi },
-    { url: `${SITE}/climatizzazione`, priority: 0.9, changeFrequency: "monthly" , lastModified: oggi },
-    { url: `${SITE}/fotovoltaico`, priority: 0.9, changeFrequency: "monthly" , lastModified: oggi },
-    { url: `${SITE}/caldaie-idraulica`, priority: 0.8, changeFrequency: "monthly" , lastModified: oggi },
-    { url: `${SITE}/chi-siamo`, priority: 0.6, changeFrequency: "yearly" , lastModified: oggi },
-    { url: `${SITE}/contatti`, priority: 0.7, changeFrequency: "yearly" , lastModified: oggi },
-    { url: `${SITE}/blog`, priority: 0.8, changeFrequency: "weekly" , lastModified: oggi },
+    { url: `${SITE}/`, priority: 1.0, changeFrequency: "monthly" },
+    { url: `${SITE}/climatizzazione`, priority: 0.9, changeFrequency: "monthly" },
+    { url: `${SITE}/fotovoltaico`, priority: 0.9, changeFrequency: "monthly" },
+    { url: `${SITE}/caldaie-idraulica`, priority: 0.8, changeFrequency: "monthly" },
+    { url: `${SITE}/chi-siamo`, priority: 0.6, changeFrequency: "yearly" },
+    { url: `${SITE}/contatti`, priority: 0.7, changeFrequency: "yearly" },
+    { url: `${SITE}/blog`, priority: 0.8, changeFrequency: "weekly" },
   ];
 
   // se Supabase non e' configurato il sitemap resta alle sole pagine statiche
@@ -27,6 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .from("articoli")
     .select("slug, updated_at, published_at")
     .eq("stato", "pubblicato")
+    .lte("published_at", new Date().toISOString())
     .order("published_at", { ascending: false });
 
   const articoli: MetadataRoute.Sitemap = (data ?? []).map((a) => ({

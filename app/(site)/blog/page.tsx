@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
 import Link from "next/link";
 import Image from "next/image";
 import { PageHead } from "@/components/shared/PageHead";
@@ -7,17 +8,11 @@ import { getArticoliPubblicati, formatData } from "@/lib/blog";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: { absolute: "Blog — Consigli su clima, fotovoltaico e riscaldamento | Aleclima" },
-  description:
-    "Guide e consigli pratici su climatizzazione, fotovoltaico con accumulo, caldaie e detrazioni fiscali, dagli installatori Aleclima e Impianti di Roma.",
-  alternates: { canonical: "/blog" },
-  openGraph: {
-    title: "Blog Aleclima — Consigli su clima, fotovoltaico e riscaldamento",
-    description: "Guide e consigli pratici dagli installatori Aleclima e Impianti di Roma.",
-    url: "/blog",
-  },
-};
+export const metadata: Metadata = pageMeta(
+  "Blog — Consigli su clima, fotovoltaico e riscaldamento | Aleclima",
+  "Guide e consigli pratici su climatizzazione, fotovoltaico con accumulo, caldaie e detrazioni fiscali, dagli installatori Aleclima e Impianti di Roma.",
+  "/blog"
+);
 
 export default async function BlogPage() {
   const articoli = await getArticoliPubblicati();
