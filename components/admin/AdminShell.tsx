@@ -10,6 +10,7 @@ const VOCI = [
   { href: "/admin", label: "Dashboard", exact: true },
   { href: "/admin/articoli", label: "Articoli" },
   { href: "/admin/lead", label: "Richieste" },
+  { href: "/admin/script", label: "Script del sito" },
 ];
 
 export function AdminShell({

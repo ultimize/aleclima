@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import { EVENTO_CONSENSO } from "@/components/shared/ScriptSito";
 import { getSupabase } from "@/lib/supabase/browser";
 
 const COOKIE_NAME = "aleclima_cookie_consent";
@@ -97,6 +98,8 @@ export const CookieConsent: React.FC = () => {
       const payloadStr = JSON.stringify(payload);
       localStorage.setItem(COOKIE_NAME, payloadStr);
       setCookie(COOKIE_NAME, payloadStr, 365);
+      // fa partire subito gli script di admin > Script del sito appena consentiti
+      window.dispatchEvent(new Event(EVENTO_CONSENSO));
 
       setConsentId(id);
       setAnalytics(analyticsVal);
