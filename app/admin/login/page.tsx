@@ -26,7 +26,9 @@ function LoginForm() {
       return;
     }
 
-    const dest = searchParams.get("redirect") || "/admin";
+    // solo percorsi interni dell'admin: niente open redirect verso altri siti
+    const r = searchParams.get("redirect") ?? "";
+    const dest = /^\/admin(\/|$)/.test(r) && !r.includes("\\") ? r : "/admin";
     router.push(dest);
     router.refresh();
   };
