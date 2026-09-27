@@ -37,6 +37,7 @@ export async function getArticoliPubblicati(): Promise<ArticoloCard[]> {
     .from("articoli")
     .select("id, slug, titolo, sommario, cover_url, cover_alt, published_at")
     .eq("stato", "pubblicato")
+    .lte("published_at", new Date().toISOString())
     .order("published_at", { ascending: false });
 
   if (error) {
@@ -55,6 +56,7 @@ export async function getArticolo(slug: string): Promise<Articolo | null> {
     .select("*")
     .eq("slug", slug)
     .eq("stato", "pubblicato")
+    .lte("published_at", new Date().toISOString())
     .maybeSingle();
 
   if (error) {
@@ -62,6 +64,15 @@ export async function getArticolo(slug: string): Promise<Articolo | null> {
     return null;
   }
   return data;
+}
+
+/**
+ * Un articolo "pubblicato" con data futura e' programmato: le query pubbliche
+ * lo escludono finche' la data non passa, poi la rigenerazione ISR (60 s) lo
+ * fa comparire da solo. Nessun cron.
+ */
+export function isProgrammato(a: Pick<Articolo, "stato" | "published_at">): boolean {
+  return a.stato === "pubblicato" && !!a.published_at && new Date(a.published_at) > new Date();
 }
 
 export function formatData(iso: string | null): string {

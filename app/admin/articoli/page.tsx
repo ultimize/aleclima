@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { AdminShell } from "@/components/admin/AdminShell";
-import { formatData } from "@/lib/blog";
+import { formatData, isProgrammato } from "@/lib/blog";
 
 export const dynamic = "force-dynamic";
 
@@ -57,14 +57,14 @@ export default async function ArticoliPage() {
                     <div className="sotto">/blog/{a.slug}</div>
                   </td>
                   <td>
-                    <span className={`pill ${a.stato}`}>
-                      {a.stato === "pubblicato" ? "pubblicato" : "bozza"}
+                    <span className={`pill ${isProgrammato(a) ? "nuovo" : a.stato}`}>
+                      {isProgrammato(a) ? "programmato" : a.stato === "pubblicato" ? "pubblicato" : "bozza"}
                     </span>
                   </td>
                   <td>{a.published_at ? formatData(a.published_at) : "—"}</td>
                   <td>{formatData(a.updated_at)}</td>
                   <td className="destra">
-                    {a.stato === "pubblicato" && (
+                    {a.stato === "pubblicato" && !isProgrammato(a) && (
                       <Link href={`/blog/${a.slug}`} target="_blank">Vedi ↗</Link>
                     )}
                   </td>

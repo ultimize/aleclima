@@ -5,7 +5,7 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { StatTile } from "@/components/admin/StatTile";
 import { LeadChart, type PuntoMese } from "@/components/admin/LeadChart";
 import { TrafficoCard } from "@/components/admin/TrafficoCard";
-import { formatData } from "@/lib/blog";
+import { formatData, isProgrammato } from "@/lib/blog";
 
 export const dynamic = "force-dynamic";
 
@@ -44,7 +44,7 @@ export default async function Dashboard() {
       .order("created_at", { ascending: false }),
     supabase
       .from("articoli")
-      .select("id, titolo, slug, stato, updated_at")
+      .select("id, titolo, slug, stato, published_at, updated_at")
       .order("updated_at", { ascending: false }),
   ]);
 
@@ -67,7 +67,8 @@ export default async function Dashboard() {
 
   const daLavorare = lead.filter((l) => l.stato === "nuovo").length;
   const nonConsegnati = lead.filter((l) => l.hl_status === "error").length;
-  const pubblicati = articoli.filter((a) => a.stato === "pubblicato").length;
+  const programmati = articoli.filter((a) => isProgrammato(a)).length;
+  const pubblicati = articoli.filter((a) => a.stato === "pubblicato").length - programmati;
   const bozze = articoli.filter((a) => a.stato === "bozza").length;
 
   const serie = perMese(lead.map((l) => l.created_at));
@@ -109,7 +110,10 @@ export default async function Dashboard() {
         <StatTile
           etichetta="Articoli pubblicati"
           valore={pubblicati}
-          nota={bozze > 0 ? `${bozze} ${bozze === 1 ? "bozza" : "bozze"} in lavorazione` : "nessuna bozza"}
+          nota={[
+            programmati > 0 && `${programmati} ${programmati === 1 ? "programmato" : "programmati"}`,
+            bozze > 0 ? `${bozze} ${bozze === 1 ? "bozza" : "bozze"} in lavorazione` : "nessuna bozza",
+          ].filter(Boolean).join(" · ")}
           href="/admin/articoli"
         />
         <StatTile
@@ -173,8 +177,8 @@ export default async function Dashboard() {
                     <span className="sotto">/blog/{a.slug}</span>
                   </div>
                   <div className="destra">
-                    <span className={`pill ${a.stato}`}>
-                      {a.stato === "pubblicato" ? "pubblicato" : "bozza"}
+                    <span className={`pill ${isProgrammato(a) ? "nuovo" : a.stato}`}>
+                      {isProgrammato(a) ? "programmato" : a.stato === "pubblicato" ? "pubblicato" : "bozza"}
                     </span>
                     <time>{formatData(a.updated_at)}</time>
                   </div>

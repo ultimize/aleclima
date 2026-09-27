@@ -7,7 +7,7 @@ import { getSupabase } from "@/lib/supabase/browser";
 import { RichEditor, uploadImmagine } from "./RichEditor";
 import { SeoPanel } from "./SeoPanel";
 import { FaqEditor } from "./FaqEditor";
-import type { Articolo, FaqItem } from "@/lib/blog";
+import { isProgrammato, type Articolo, type FaqItem } from "@/lib/blog";
 
 /** Titolo -> slug: minuscolo, senza accenti, parole separate da trattino. */
 export function slugify(s: string): string {
@@ -21,6 +21,17 @@ export function slugify(s: string): string {
 }
 
 type Bozza = Partial<Articolo> & { titolo: string; slug: string };
+
+function dataLeggibile(iso: string): string {
+  return new Date(iso).toLocaleString("it-IT", { dateStyle: "full", timeStyle: "short" });
+}
+
+/** ISO -> valore per <input type="datetime-local"> nell'ora locale del browser. */
+function toLocalInput(iso: string | null | undefined): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+}
 
 export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
   const router = useRouter();
@@ -38,6 +49,19 @@ export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
     keyword: articolo?.keyword ?? "",
     faq: articolo?.faq ?? [],
     stato: articolo?.stato ?? "bozza",
+  });
+
+  // programmazione: stato "pubblicato" + published_at futura (vedi isProgrammato)
+  const [programmatoIl, setProgrammatoIl] = useState<string | null>(
+    articolo && isProgrammato(articolo) ? articolo.published_at : null
+  );
+  const [apriProgramma, setApriProgramma] = useState(false);
+  const [quando, setQuando] = useState(() => {
+    if (programmatoIl) return toLocalInput(programmatoIl);
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    d.setHours(9, 0, 0, 0);
+    return toLocalInput(d.toISOString());
   });
 
   const [msg, setMsg] = useState<{ tipo: "ok" | "err"; testo: string } | null>(null);
@@ -63,7 +87,8 @@ export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
     }
   };
 
-  const salva = async (stato: "bozza" | "pubblicato") => {
+  /** dataIso presente = programma l'uscita a quella data. */
+  const salva = async (stato: "bozza" | "pubblicato", dataIso?: string) => {
     setMsg(null);
 
     if (!f.titolo.trim()) return setMsg({ tipo: "err", testo: "Il titolo è obbligatorio." });
@@ -71,6 +96,9 @@ export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
     if (!slug) return setMsg({ tipo: "err", testo: "Lo slug è obbligatorio." });
     if (stato === "pubblicato" && !f.contenuto_html?.replace(/<[^>]*>/g, "").trim()) {
       return setMsg({ tipo: "err", testo: "Non puoi pubblicare un articolo vuoto." });
+    }
+    if (dataIso && new Date(dataIso) <= new Date()) {
+      return setMsg({ tipo: "err", testo: "Scegli una data e un'ora nel futuro." });
     }
 
     setSaving(true);
@@ -88,6 +116,13 @@ export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
       // scarta le righe lasciate a meta'
       faq: (f.faq ?? []).filter((q) => q.domanda.trim() && q.risposta.trim()),
       stato,
+      // la bozza non tocca la data; "Pubblica" tiene quella originale se l'articolo
+      // era gia' uscito, altrimenti (nuovo o programmato) esce adesso
+      ...(stato === "pubblicato" && {
+        published_at:
+          dataIso ??
+          (articolo?.published_at && !programmatoIl ? articolo.published_at : new Date().toISOString()),
+      }),
     };
 
     const res = isNuovo
@@ -109,9 +144,16 @@ export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
 
     setMsg({
       tipo: "ok",
-      testo: stato === "pubblicato" ? "Articolo pubblicato." : "Bozza salvata.",
+      testo:
+        stato === "bozza"
+          ? "Bozza salvata."
+          : dataIso
+            ? `Articolo programmato: uscirà ${dataLeggibile(dataIso)}.`
+            : "Articolo pubblicato.",
     });
     set("stato", stato);
+    setProgrammatoIl(stato === "pubblicato" ? dataIso ?? null : null);
+    setApriProgramma(false);
 
     if (isNuovo && res.data?.id) {
       router.replace(`/admin/articoli/${res.data.id}`);
@@ -276,7 +318,10 @@ export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
           {saving ? "Salvataggio…" : "Salva bozza"}
         </button>
         <button className="btn btn-green" type="button" disabled={saving} onClick={() => salva("pubblicato")}>
-          {f.stato === "pubblicato" ? "Aggiorna pubblicato" : "Pubblica"}
+          {programmatoIl ? "Pubblica subito" : f.stato === "pubblicato" ? "Aggiorna pubblicato" : "Pubblica"}
+        </button>
+        <button className="btn btn-ghost" type="button" disabled={saving} onClick={() => setApriProgramma((v) => !v)}>
+          {programmatoIl ? "Cambia programmazione" : "Programma"}
         </button>
         {!isNuovo && (
           <button
@@ -289,6 +334,44 @@ export function ArticoloForm({ articolo }: { articolo: Articolo | null }) {
           </button>
         )}
       </div>
+
+      {programmatoIl && !apriProgramma && (
+        <div className="hint">
+          Programmato: uscirà <strong>{dataLeggibile(programmatoIl)}</strong>. Fino ad allora non è visibile sul sito.
+        </div>
+      )}
+
+      {apriProgramma && (
+        <div className="admin-card admin-form">
+          <div>
+            <label htmlFor="quando">Quando deve uscire?</label>
+            <input
+              id="quando"
+              type="datetime-local"
+              value={quando}
+              min={toLocalInput(new Date().toISOString())}
+              onChange={(e) => setQuando(e.target.value)}
+            />
+            <div className="hint">
+              Fino a quell&apos;ora l&apos;articolo resta nascosto, poi compare da solo sul blog e nel
+              sitemap entro un minuto. Per salvare modifiche a un articolo programmato, conferma di nuovo qui.
+            </div>
+          </div>
+          <div className="admin-actions">
+            <button
+              className="btn btn-green"
+              type="button"
+              disabled={saving || !quando}
+              onClick={() => salva("pubblicato", new Date(quando).toISOString())}
+            >
+              {saving ? "Salvataggio…" : "Conferma programmazione"}
+            </button>
+            <button className="btn btn-ghost" type="button" onClick={() => setApriProgramma(false)}>
+              Annulla
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

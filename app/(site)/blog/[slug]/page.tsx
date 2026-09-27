@@ -6,6 +6,7 @@ import { Band } from "@/components/shared/Band";
 import { getSupabasePublic } from "@/lib/supabase/public";
 import { getArticolo, formatData, tempoLettura } from "@/lib/blog";
 import { titoloEffettivo } from "@/lib/seo";
+import { OG_IMAGE } from "@/lib/meta";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -20,7 +21,8 @@ export async function generateStaticParams() {
   const { data } = await supabase
     .from("articoli")
     .select("slug")
-    .eq("stato", "pubblicato");
+    .eq("stato", "pubblicato")
+    .lte("published_at", new Date().toISOString());
   return (data ?? []).map((a: { slug: string }) => ({ slug: a.slug }));
 }
 
@@ -47,13 +49,13 @@ export async function generateMetadata({
       url: `/blog/${a.slug}`,
       publishedTime: a.published_at ?? undefined,
       modifiedTime: a.updated_at,
-      images: a.cover_url ? [{ url: a.cover_url }] : undefined,
+      images: [a.cover_url ? { url: a.cover_url } : OG_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: a.cover_url ? [a.cover_url] : undefined,
+      images: [a.cover_url ?? OG_IMAGE.url],
     },
   };
 }
