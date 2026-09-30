@@ -37,3 +37,6 @@ next-env.d.ts
 
 # cartella di scarto della migrazione (da rimuovere a mano)
 /_to_delete/
+
+# file locali della Supabase CLI
+supabase/.temp/

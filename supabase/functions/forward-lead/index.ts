@@ -68,7 +68,11 @@ Deno.serve(async (req: Request) => {
   const PIT = Deno.env.get("HL_PIT");
   const FORWARD_SECRET = Deno.env.get("FORWARD_SECRET");
 
-  if (FORWARD_SECRET && req.headers.get("x-forward-secret") !== FORWARD_SECRET) {
+  if (!FORWARD_SECRET) {
+    console.error("forward-lead: FORWARD_SECRET non configurato");
+    return new Response("Server misconfigured", { status: 500 });
+  }
+  if (req.headers.get("x-forward-secret") !== FORWARD_SECRET) {
     return new Response("Unauthorized", { status: 401 });
   }
 

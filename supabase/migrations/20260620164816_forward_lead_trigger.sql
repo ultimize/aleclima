@@ -11,7 +11,7 @@ begin
     url := 'https://aurlsynzwvsquvjelusv.supabase.co/functions/v1/forward-lead',
     headers := jsonb_build_object(
       'Content-Type', 'application/json',
-      'x-forward-secret', 'fwd_3b9d7c1a8e6f4205'
+      'x-forward-secret', 'secret-rimosso-vedi-migration-20260930'
     ),
     body := to_jsonb(NEW)
   );
