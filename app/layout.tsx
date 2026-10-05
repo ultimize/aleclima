@@ -49,7 +49,7 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="it">
+    <html lang="it" suppressHydrationWarning>
       <head>
         {/* Google Consent Mode v2: tutto negato finche' l'utente non sceglie.
             beforeInteractive perche' deve girare prima di qualsiasi tag. */}
