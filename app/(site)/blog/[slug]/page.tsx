@@ -78,12 +78,20 @@ export default async function ArticoloPage({
     datePublished: a.published_at ?? a.created_at,
     dateModified: a.updated_at,
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE}/blog/${a.slug}` },
-    author: { "@type": "Organization", name: "Aleclima e Impianti S.r.l.s", url: SITE },
+    // Local SEO: autore ed editore sono la stessa HVACBusiness del layout
+    // (@id), cosi' Google lega l'articolo a indirizzo, zona servita e scheda
+    author: { "@type": "HVACBusiness", "@id": `${SITE}/#azienda`, name: "Aleclima e Impianti S.r.l.s", url: SITE },
     publisher: {
-      "@type": "Organization",
+      "@type": "HVACBusiness",
+      "@id": `${SITE}/#azienda`,
       name: "Aleclima e Impianti S.r.l.s",
       logo: { "@type": "ImageObject", url: `${SITE}/aleclima-logo.png` },
     },
+    spatialCoverage: [
+      { "@type": "City", name: "Roma" },
+      { "@type": "AdministrativeArea", name: "Città metropolitana di Roma Capitale" },
+    ],
+    inLanguage: "it-IT",
   };
 
   // FAQPage: e' cio' che porta l'articolo nei riquadri di Google e nelle risposte AI
