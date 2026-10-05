@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { ArticoloForm } from "@/components/admin/ArticoloForm";
-import type { Articolo } from "@/lib/blog";
+import { isProgrammato, type Articolo } from "@/lib/blog";
 
 export const dynamic = "force-dynamic";
 
@@ -30,8 +30,8 @@ export default async function EditorPage({
       titolo={articolo ? "Modifica articolo" : "Nuovo articolo"}
       azione={
         articolo ? (
-          <span className={`pill ${articolo.stato}`}>
-            {articolo.stato === "pubblicato" ? "pubblicato" : "bozza"}
+          <span className={`pill ${isProgrammato(articolo) ? "nuovo" : articolo.stato}`}>
+            {isProgrammato(articolo) ? "programmato" : articolo.stato === "pubblicato" ? "pubblicato" : "bozza"}
           </span>
         ) : undefined
       }
