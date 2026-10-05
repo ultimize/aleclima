@@ -4,20 +4,7 @@ import { FloatingWhatsApp } from "@/components/shared/FloatingWhatsApp";
 import { CookieConsent } from "@/components/shared/CookieConsent";
 import { DetrazioneProvider } from "@/components/shared/DetrazioneContext";
 import { PageViewTracker } from "@/components/shared/PageViewTracker";
-import { ScriptSito } from "@/components/shared/ScriptSito";
-import { getImpostazioni, getScriptAttivi } from "@/lib/script-sito";
-import type { Metadata } from "next";
-
-/** Codici di verifica Search Console / Bing, gestiti da admin > Script del sito. */
-export async function generateMetadata(): Promise<Metadata> {
-  const imp = await getImpostazioni();
-  return {
-    verification: {
-      google: imp.verifica_google ?? undefined,
-      other: imp.verifica_bing ? { "msvalidate.01": imp.verifica_bing } : undefined,
-    },
-  };
-}
+import { Clarity } from "@/components/shared/Clarity";
 
 /** Dati strutturati dell'attivita': erano inline in index.html, ora vivono qui. */
 const jsonLd = {
@@ -62,8 +49,7 @@ const jsonLd = {
   ],
 };
 
-export default async function SiteLayout({ children }: { children: React.ReactNode }) {
-  const script = await getScriptAttivi();
+export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <DetrazioneProvider>
       <script
@@ -77,7 +63,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         <FloatingWhatsApp />
         <CookieConsent />
         <PageViewTracker />
-        <ScriptSito script={script} />
+        <Clarity />
       </div>
     </DetrazioneProvider>
   );
