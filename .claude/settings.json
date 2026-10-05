@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(.env*)",
+      "Write(.env*)",
+      "Edit(.env*)",
+      "Bash(cat *env*)",
+      "Bash(cat .env*)",
+      "Bash(echo * .env*)",
+      "Bash(grep * .env*)",
+      "Bash(git add .env*)",
+      "Bash(git add -A*)",
+      "Bash(git add .)",
+      "Bash(git commit*--no-verify*)",
+      "Bash(curl*SUPABASE*)",
+      "Bash(curl*supabase*)"
+    ]
+  }
+}
