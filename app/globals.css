@@ -1119,6 +1119,22 @@ footer .small {
   .wa-float svg { margin: 0 12px; }
 }
 
+/* ====== Pronto intervento ====== */
+.btn-red { background: #dc2626; color: #fff; box-shadow: 0 6px 16px rgba(220,38,38,.28); cursor: pointer; }
+.btn-red:hover { background: #b91c1c; }
+.btn-red svg { width: 18px; height: 18px; }
+.pi-dialog { border: none; padding: 0; background: none; width: min(560px, calc(100% - 32px)); max-height: calc(100dvh - 32px); margin: auto; }
+.pi-dialog::backdrop { background: rgba(10,37,64,.55); }
+.pi-dialog .form { position: relative; }
+.pi-dialog .form h3 { padding-right: 32px; }
+.menu-cta { display: none; }
+/* ponytail: su mobile non c'è spazio per due CTA, Preventivo resta raggiungibile da menu > Contatti */
+@media (max-width: 600px) {
+  .nav-cta .btn-green.burger-cta { display: none; }
+  .menu.open a.menu-cta { display: flex; width: auto; align-self: stretch; color: #fff; font-size: 16px; margin: 8px 0 6px; }
+  .nav-cta .btn-red { font-size: 14px; padding: 10px 12px; }
+}
+
 /* ====== Fix Contatti: evita overflow su mobile (email/indirizzi lunghi) ====== */
 .cgrid > *, .cbox, .form { min-width: 0; }
 .crow > div:last-child { min-width: 0; flex: 1 1 auto; }

@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Logo } from "../shared/Logo";
+import { ProntoIntervento } from "../shared/ProntoIntervento";
 
 const EMAIL = "aleclimaimpiantisrls@gmail.com";
 const TEL = "352 283 8561";
@@ -67,6 +68,9 @@ export const Footer: React.FC = () => {
               <br />
               Ufficio: 06 86764589
             </p>
+            <div style={{ marginTop: 14 }}>
+              <ProntoIntervento />
+            </div>
           </div>
         </div>
         <div className="fbot">

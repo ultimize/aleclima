@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "../shared/Logo";
 import { I } from "../shared/Icons";
+import { ProntoIntervento } from "../shared/ProntoIntervento";
 
 const EMAIL = "aleclimaimpiantisrls@gmail.com";
 const TEL = "352 283 8561";
@@ -66,9 +67,13 @@ export const Header: React.FC = () => {
                 {label}
               </Link>
             ))}
+            <Link href="/contatti" className="btn btn-green menu-cta">
+              Preventivo gratuito
+            </Link>
           </nav>
 
           <div className="nav-cta">
+            <ProntoIntervento className="btn btn-red burger-cta" />
             <Link href="/contatti" className="btn btn-green burger-cta">
               Preventivo
             </Link>
