@@ -142,17 +142,18 @@ header.nav {
 
 .menu {
   display: flex;
-  gap: 4px;
+  gap: 2px;
   align-items: center;
 }
 .menu button, .menu a {
   font-family: 'Barlow Condensed';
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 16.5px;
+  font-size: 15px;
   letter-spacing: .03em;
   color: var(--inchiostro);
-  padding: 9px 13px;
+  padding: 8px 10px;
+  white-space: nowrap;
   border-radius: 8px;
   transition: all 0.15s ease;
 }
