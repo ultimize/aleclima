@@ -1,6 +1,6 @@
 import React from "react";
 
-const WA = "393479576619";
+const WA = "393522838561";
 const MSG = "Ciao Aleclima! Vorrei ricevere maggiori informazioni.";
 
 export const FloatingWhatsApp: React.FC = () => {

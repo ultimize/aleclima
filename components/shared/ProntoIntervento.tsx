@@ -2,7 +2,8 @@
 
 import React, { useRef } from "react";
 import { I } from "./Icons";
-import { WA } from "./Band";
+
+const WA = "393522838561"; // numero dedicato al pronto intervento
 
 // ponytail: wa.me non allega file, foto/video li invia il cliente nella chat aperta
 const CAMPI: [name: string, label: string][] = [

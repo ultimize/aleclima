@@ -10,7 +10,7 @@ import { ProntoIntervento } from "../shared/ProntoIntervento";
 const EMAIL = "aleclimaimpiantisrls@gmail.com";
 const TEL = "352 283 8561";
 const TEL_RAW = "393522838561";
-const WA = "393479576619";
+const WA = "393522838561";
 
 export const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);

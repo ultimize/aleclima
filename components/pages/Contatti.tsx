@@ -8,7 +8,7 @@ import { Reviews } from "@/components/shared/Reviews";
 
 const TEL = "352 283 8561";
 const TEL_RAW = "393522838561";
-const WA = "393479576619";
+const WA = "393522838561";
 const EMAIL = "aleclimaimpiantisrls@gmail.com";
 
 interface FormFields {
@@ -162,7 +162,7 @@ export const Contatti: React.FC = () => {
                 <div className="ci">{I.wa}</div>
                 <div>
                   <div className="ck">WhatsApp</div>
-                  <a className="cv" href={`https://wa.me/${WA}`} target="_blank" rel="noreferrer">347 9576619</a>
+                  <a className="cv" href={`https://wa.me/${WA}`} target="_blank" rel="noreferrer">352 283 8561</a>
                 </div>
               </div>
               

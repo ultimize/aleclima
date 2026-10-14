@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { I } from "./Icons";
 
-export const WA = "393479576619";
+export const WA = "393522838561";
 
 interface BandProps {
   title: string;
