@@ -1062,7 +1062,7 @@ footer .small {
     background: var(--notte);
     border-radius: 2px;
   }
-  .nav-cta .btn:not(.burger-cta) {
+  .nav-cta > .btn:not(.burger-cta) {
     display: none;
   }
   .band {
@@ -1131,9 +1131,9 @@ footer .small {
 .menu-cta { display: none; }
 /* ponytail: su mobile non c'è spazio per due CTA, Preventivo resta raggiungibile da menu > Contatti */
 @media (max-width: 600px) {
-  .nav-cta .btn-green.burger-cta { display: none; }
+  .nav-cta > .btn-green.burger-cta { display: none; }
   .menu.open a.menu-cta { display: flex; width: auto; align-self: stretch; color: #fff; font-size: 16px; margin: 8px 0 6px; }
-  .nav-cta .btn-red { font-size: 14px; padding: 10px 12px; }
+  .nav-cta > .btn-red { font-size: 14px; padding: 10px 12px; }
 }
 
 /* ====== Fix Contatti: evita overflow su mobile (email/indirizzi lunghi) ====== */
