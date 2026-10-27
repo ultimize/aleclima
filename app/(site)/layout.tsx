@@ -43,7 +43,7 @@ const jsonLd = {
     { "@type": "AdministrativeArea", name: "Provincia di Roma" },
   ],
   sameAs: [
-    "https://www.instagram.com/aleclimaeimpianti",
+    "https://www.instagram.com/aleclima.e.impiantisrls/",
     "https://www.facebook.com/aleclima.impiantisrls",
     "https://www.tiktok.com/@aleclimaeimpianti",
   ],
