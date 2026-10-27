@@ -10,7 +10,7 @@
   --ombra: 0 1px 2px rgba(10, 37, 64, .05), 0 8px 24px rgba(10, 37, 64, .06);
   min-height: 100vh;
   background: #f5f8fc;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--f-inter), system-ui, sans-serif;
   color: var(--inchiostro);
 }
 
@@ -121,7 +121,7 @@
   z-index: 5;
 }
 .ash-top h1 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--f-barlow), sans-serif;
   font-size: 28px;
   color: var(--notte);
   line-height: 1.1;
@@ -174,7 +174,7 @@
   margin-bottom: 14px;
 }
 .card-head h2 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--f-barlow), sans-serif;
   font-size: 21px;
   color: var(--notte);
 }
@@ -186,7 +186,7 @@
 .vuoto { color: var(--grigio); font-size: 14.5px; }
 .vuoto-grande { text-align: center; padding: 46px 26px; }
 .vuoto-grande h2 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--f-barlow), sans-serif;
   font-size: 25px;
   color: var(--notte);
   margin-bottom: 8px;
@@ -245,7 +245,7 @@
   margin-bottom: 8px;
 }
 .tile-valore {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--f-barlow), sans-serif;
   font-size: 42px;
   line-height: 1;
   color: var(--notte);
@@ -274,7 +274,7 @@
   margin-bottom: 14px;
 }
 .chart figcaption strong {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--f-barlow), sans-serif;
   font-size: 21px;
   color: var(--notte);
 }
@@ -439,11 +439,11 @@
 .editor-shell .ProseMirror { outline: none; min-height: 340px; line-height: 1.7; }
 .editor-shell .ProseMirror p { margin-bottom: 14px; }
 .editor-shell .ProseMirror h2 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--f-barlow), sans-serif;
   font-size: 27px; color: var(--notte); margin: 22px 0 10px;
 }
 .editor-shell .ProseMirror h3 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--f-barlow), sans-serif;
   font-size: 21px; color: var(--notte); margin: 18px 0 8px;
 }
 .editor-shell .ProseMirror ul,
@@ -467,7 +467,7 @@
   box-shadow: var(--ombra);
 }
 .login-card h1 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--f-barlow), sans-serif;
   font-size: 27px; color: var(--notte); margin-bottom: 6px;
 }
 .login-card .sub { font-size: 14px; color: var(--grigio); margin-bottom: 22px; }
@@ -532,7 +532,7 @@
   box-shadow: var(--ombra);
 }
 .seo-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-.seo-head h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; color: var(--notte); }
+.seo-head h3 { font-family: var(--f-barlow), sans-serif; font-size: 22px; color: var(--notte); }
 .seo-score { font-weight: 700; font-size: 15px; padding: 5px 13px; border-radius: 999px; }
 .seo-score.buono { background: #e4f6ea; color: var(--verde-scuro); }
 .seo-score.medio { background: #fdf1dd; color: #9a6412; }
@@ -591,7 +591,7 @@
 /* --- traffico --- */
 
 h2.sezione {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--f-barlow), sans-serif;
   font-size: 23px;
   color: var(--notte);
   margin-top: 8px;

@@ -98,7 +98,7 @@ export const Contatti: React.FC = () => {
         servizio: f.servizio,
         messaggio: f.msg.trim() || null,
         privacy: true,
-        marketing: f.marketing,
+        // ponytail: riattivare `marketing: f.marketing` dopo la migrazione 20261027120000 su Supabase
         fonte: "sito",
         user_agent: navigator.userAgent
       });

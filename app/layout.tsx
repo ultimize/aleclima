@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Barlow_Condensed, Inter } from "next/font/google";
 import "./globals.css";
 import { OG_IMAGE } from "@/lib/meta";
 
@@ -41,6 +42,10 @@ export const metadata: Metadata = {
   },
 };
 
+// Font scaricati in build e serviti dal nostro dominio: nessuna richiesta a Google dal browser (GDPR)
+const barlow = Barlow_Condensed({ subsets: ["latin"], weight: ["500", "600", "700", "800"], variable: "--f-barlow", display: "swap" });
+const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--f-inter", display: "swap" });
+
 export const viewport = {
   themeColor: "#0A2540",
   width: "device-width",
@@ -49,7 +54,7 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="it" suppressHydrationWarning>
+    <html lang="it" className={`${barlow.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         {/* Google Consent Mode v2: tutto negato finche' l'utente non sceglie.
             beforeInteractive perche' deve girare prima di qualsiasi tag. */}
@@ -62,12 +67,6 @@ gtag('consent','default',{
   security_storage:'granted', wait_for_update:500
 });`}
         </Script>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
       </head>
       <body>{children}</body>
     </html>
