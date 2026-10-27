@@ -114,7 +114,7 @@ Deno.serve(async (req: Request) => {
         email: r.email || undefined,
         phone: phone || undefined,
         source: "Sito web Aleclima",
-        tags: [r.servizio, "sito-web"].filter(Boolean),
+        tags: [r.servizio, "sito-web", r.marketing ? "consenso-marketing" : null].filter(Boolean),
       }),
     });
   } catch (e) {

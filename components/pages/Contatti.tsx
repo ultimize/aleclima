@@ -18,6 +18,7 @@ interface FormFields {
   servizio: string;
   msg: string;
   privacy: boolean;
+  marketing: boolean;
 }
 
 interface FormErrors {
@@ -37,7 +38,8 @@ export const Contatti: React.FC = () => {
     email: "",
     servizio: "",
     msg: "",
-    privacy: false
+    privacy: false,
+    marketing: false
   });
   
   const [err, setErr] = useState<FormErrors>({});
@@ -80,7 +82,7 @@ export const Contatti: React.FC = () => {
     }
     
     if (!f.servizio) eErrors.servizio = "Seleziona un servizio";
-    if (!f.privacy) eErrors.privacy = "Devi accettare l'informativa sulla privacy per procedere";
+    if (!f.privacy) eErrors.privacy = "Devi confermare di aver letto l'informativa privacy";
 
     if (Object.keys(eErrors).length > 0) {
       setErr(eErrors);
@@ -96,6 +98,7 @@ export const Contatti: React.FC = () => {
         servizio: f.servizio,
         messaggio: f.msg.trim() || null,
         privacy: true,
+        marketing: f.marketing,
         fonte: "sito",
         user_agent: navigator.userAgent
       });
@@ -204,7 +207,7 @@ export const Contatti: React.FC = () => {
                       className="btn btn-ghost" 
                       onClick={() => {
                         setSent(false);
-                        setF({ nome: "", tel: "", email: "", servizio: "", msg: "", privacy: false });
+                        setF({ nome: "", tel: "", email: "", servizio: "", msg: "", privacy: false, marketing: false });
                       }}
                       type="button"
                     >
@@ -301,8 +304,22 @@ export const Contatti: React.FC = () => {
                       disabled={loading}
                     />
                     <label htmlFor="privacy">
-                      Ho letto l'informativa privacy e acconsento al trattamento dei dati per essere ricontattato. 
+                      Ho letto l'<a href="/privacy-policy" target="_blank">informativa privacy</a> e chiedo di essere ricontattato per la mia richiesta.*
                       {err.privacy && <b style={{ color: "#dc2626", marginLeft: 5 }}>— {err.privacy}</b>}
+                    </label>
+                  </div>
+
+                  {/* consenso marketing: facoltativo, separato e mai preselezionato (art. 7 GDPR, art. 130 Codice privacy) */}
+                  <div className="privacy">
+                    <input
+                      id="marketing"
+                      type="checkbox"
+                      checked={f.marketing}
+                      onChange={(e) => setField("marketing", e.target.checked)}
+                      disabled={loading}
+                    />
+                    <label htmlFor="marketing">
+                      Facoltativo: acconsento a ricevere offerte, promozioni e novità da Aleclima via email, telefono, SMS o WhatsApp. Posso revocare il consenso in qualsiasi momento.
                     </label>
                   </div>
                   
