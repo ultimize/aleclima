@@ -49,6 +49,7 @@ export const Fotovoltaico: React.FC = () => {
   return (
     <>
       <PageHead 
+        path="/fotovoltaico"
         crumb="Fotovoltaico" 
         kick="Il sole lavora per te"
         title="Fotovoltaico con accumulo"

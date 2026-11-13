@@ -126,6 +126,7 @@ export const Contatti: React.FC = () => {
   return (
     <>
       <PageHead 
+        path="/contatti"
         crumb="Contatti" 
         kick="Siamo a Roma e provincia"
         title="Richiedi un preventivo gratuito"

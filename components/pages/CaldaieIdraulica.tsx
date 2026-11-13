@@ -34,6 +34,7 @@ export const CaldaieIdraulica: React.FC = () => {
   return (
     <>
       <PageHead 
+        path="/caldaie-idraulica"
         crumb="Caldaie & Idraulica" 
         kick="Termoidraulica a Roma"
         title="Caldaie, riscaldamento e idraulica"

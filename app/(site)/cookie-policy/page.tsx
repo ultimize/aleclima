@@ -13,7 +13,7 @@ export const metadata: Metadata = pageMeta(
 export default function Page() {
   return (
     <>
-      <PageHead crumb="Cookie Policy" kick="Informativa cookie" title="Cookie Policy" sub="Ultimo aggiornamento: 27 ottobre 2026" />
+      <PageHead path="/cookie-policy" crumb="Cookie Policy" kick="Informativa cookie" title="Cookie Policy" sub="Ultimo aggiornamento: 27 ottobre 2026" />
       <section className="section">
         <div className="wrap legal">
           <p>

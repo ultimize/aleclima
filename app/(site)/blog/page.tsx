@@ -20,6 +20,7 @@ export default async function BlogPage() {
   return (
     <>
       <PageHead
+        path="/blog"
         crumb="Blog"
         kick="Guide e consigli"
         title="Il blog di Aleclima"

@@ -44,6 +44,7 @@ export const Climatizzazione: React.FC = () => {
   return (
     <>
       <PageHead 
+        path="/climatizzazione"
         crumb="Climatizzazione" 
         kick="Comfort che fa la differenza"
         title="Climatizzatori Samsung chiavi in mano"
