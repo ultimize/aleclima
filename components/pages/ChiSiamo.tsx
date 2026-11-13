@@ -16,9 +16,10 @@ export const ChiSiamo: React.FC = () => {
   return (
     <>
       <PageHead 
+        path="/chi-siamo"
         crumb="Chi siamo" 
         kick="La nostra storia"
-        title="Aleclima e Impianti"
+        title="Aleclima e Impianti: installatori a Roma dal 2006"
         sub="Una realtà nata nel 2006 per diffondere un nuovo concetto di riscaldamento e climatizzazione." 
       />
       <section className="section">

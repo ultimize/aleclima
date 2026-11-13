@@ -65,7 +65,7 @@ export const Home: React.FC = () => {
             <span className="eyebrow">
               <span className="dot" /> Roma e provincia · sopralluogo gratuito
             </span>
-            <h1>Clima e fotovoltaico a Roma: il risparmio a portata di <span className="hl">scelta</span>.</h1>
+            <h1>Clima e fotovoltaico a Roma: il risparmio a portata di <span className="hl">scelta.</span></h1>
             <p className="lead">
               Climatizzazione, fotovoltaico e riscaldamento chiavi in mano. Consumare e consumare meglio: impianti efficienti che ti ripagano, con la detrazione fiscale gestita da noi.
             </p>
