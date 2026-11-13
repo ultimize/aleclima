@@ -50,7 +50,10 @@ export const BRAND = "Aleclima e Impianti";
 export function titoloEffettivo(titolo: string, metaTitle?: string | null): string {
   const base = (metaTitle || titolo || "").trim();
   if (!base) return BRAND;
-  return /aleclima/i.test(base) ? base : `${base} — ${BRAND}`;
+  if (/aleclima/i.test(base)) return base;
+  // suffisso corto come negli altri post; se sfora i 60 caratteri, niente brand
+  const conBrand = `${base} | Aleclima`;
+  return conBrand.length <= 60 ? conBrand : base;
 }
 
 export function testoDaHtml(html: string): string {
