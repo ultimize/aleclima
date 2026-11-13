@@ -24,7 +24,7 @@ const fvKits: KitType[] = [
   { 
     name: "Comfort", 
     spec: "6 kW + 10 kWh", 
-    price: 8290, 
+    price: 7990,
     feat: false,
     pts: ["Tutto compreso, IVA inclusa", "Certificazione di conformità", "Pratica ENEA per detrazione 50%", "Sopralluogo gratuito"] 
   },
