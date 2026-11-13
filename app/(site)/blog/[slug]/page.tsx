@@ -4,8 +4,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Band } from "@/components/shared/Band";
 import { getSupabasePublic } from "@/lib/supabase/public";
-import { getArticolo, formatData, tempoLettura } from "@/lib/blog";
-import { titoloEffettivo } from "@/lib/seo";
+import { getArticolo, getArticoliPubblicati, formatData, tempoLettura, dataModifica } from "@/lib/blog";
+import { titoloEffettivo, testoDaHtml, PAGINE_INTERNE } from "@/lib/seo";
 import { OG_IMAGE } from "@/lib/meta";
 
 export const revalidate = 60;
@@ -48,7 +48,7 @@ export async function generateMetadata({
       description,
       url: `/blog/${a.slug}`,
       publishedTime: a.published_at ?? undefined,
-      modifiedTime: a.updated_at,
+      modifiedTime: dataModifica(a),
       images: [a.cover_url ? { url: a.cover_url } : OG_IMAGE],
     },
     twitter: {
@@ -76,7 +76,7 @@ export default async function ArticoloPage({
     description: a.meta_description || a.sommario || undefined,
     image: a.cover_url ? [a.cover_url] : undefined,
     datePublished: a.published_at ?? a.created_at,
-    dateModified: a.updated_at,
+    dateModified: dataModifica(a),
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE}/blog/${a.slug}` },
     // Local SEO: autore ed editore sono la stessa HVACBusiness del layout
     // (@id), cosi' Google lega l'articolo a indirizzo, zona servita e scheda
@@ -110,6 +110,16 @@ export default async function ArticoloPage({
         })),
       }
     : null;
+
+  // servizi citati nel testo: link contestuali verso le pagine che vendono
+  const testo = testoDaHtml(`${a.titolo} ${a.contenuto_html}`).toLowerCase();
+  const tocca = (s: string) => (p: (typeof PAGINE_INTERNE)[number]) => p.termini.some((t) => s.includes(t));
+  const servizi = PAGINE_INTERNE.filter((p) => p.href !== "/contatti").filter(tocca(testo));
+  // "Leggi anche": prima gli articoli sullo stesso servizio, poi i piu' recenti
+  const altri = (await getArticoliPubblicati()).filter((x) => x.slug !== a.slug);
+  const stessoServizio = (x: (typeof altri)[number]) =>
+    servizi.some(tocca(`${x.titolo} ${x.sommario ?? ""}`.toLowerCase()));
+  const leggiAnche = [...altri.filter(stessoServizio), ...altri.filter((x) => !stessoServizio(x))].slice(0, 3);
 
   const breadcrumbLd = {
     "@context": "https://schema.org",
@@ -188,6 +198,32 @@ export default async function ArticoloPage({
                 </details>
               ))}
             </section>
+          )}
+
+          {servizi.length > 0 && (
+            <aside className="article-faq">
+              <h2>I nostri servizi su questo tema</h2>
+              <ul>
+                {servizi.map((s) => (
+                  <li key={s.href}>
+                    <Link href={s.href}>{s.nome} a Roma e provincia</Link>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )}
+
+          {leggiAnche.length > 0 && (
+            <aside className="article-faq">
+              <h2>Leggi anche</h2>
+              <ul>
+                {leggiAnche.map((x) => (
+                  <li key={x.slug}>
+                    <Link href={`/blog/${x.slug}`}>{x.titolo}</Link>
+                  </li>
+                ))}
+              </ul>
+            </aside>
           )}
 
           <p className="article-back">
