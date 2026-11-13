@@ -12,9 +12,8 @@ export const Logo: React.FC<LogoProps> = ({ light }) => {
       src="/aleclima-logo.png"
       alt="Aleclima e Impianti"
       className="site-logo"
-      width={922}
-      height={473}
-      sizes="180px"
+      width={180}
+      height={92}
       loading="eager"
     />
   );
