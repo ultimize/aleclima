@@ -168,7 +168,9 @@ export default async function ArticoloPage({
                 alt={a.cover_alt ?? a.titolo}
                 width={1200}
                 height={675}
-                priority
+                sizes="(max-width: 800px) 100vw, 760px"
+                loading="eager"
+                fetchPriority="high"
               />
             </div>
           )}
