@@ -28,6 +28,8 @@ const jsonLd = {
     addressRegion: "RM",
     addressCountry: "IT",
   },
+  // ponytail: coordinate OSM a livello di via; allinearle al pin della scheda Google se diverge
+  geo: { "@type": "GeoCoordinates", latitude: 41.8334, longitude: 12.8019 },
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
