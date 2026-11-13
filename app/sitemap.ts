@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getSupabasePublic } from "@/lib/supabase/public";
+import { dataModifica } from "@/lib/blog";
 
 const SITE = "https://www.aleclima.eu";
 
@@ -11,14 +12,17 @@ const SITE = "https://www.aleclima.eu";
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // lastmod delle pagine statiche: data dell'ultima modifica reale del contenuto.
+  // ponytail: aggiornata a mano quando si tocca la pagina; git log al build se diventa scomodo
   const statiche: MetadataRoute.Sitemap = [
-    { url: `${SITE}/`, priority: 1.0, changeFrequency: "monthly" },
-    { url: `${SITE}/climatizzazione`, priority: 0.9, changeFrequency: "monthly" },
-    { url: `${SITE}/fotovoltaico`, priority: 0.9, changeFrequency: "monthly" },
-    { url: `${SITE}/caldaie-idraulica`, priority: 0.8, changeFrequency: "monthly" },
-    { url: `${SITE}/chi-siamo`, priority: 0.6, changeFrequency: "yearly" },
-    { url: `${SITE}/contatti`, priority: 0.7, changeFrequency: "yearly" },
-    { url: `${SITE}/blog`, priority: 0.8, changeFrequency: "weekly" },
+    // senza slash finale, come il canonical generato da metadataBase
+    { url: SITE, lastModified: "2026-11-13", priority: 1.0, changeFrequency: "monthly" },
+    { url: `${SITE}/climatizzazione`, lastModified: "2026-11-13", priority: 0.9, changeFrequency: "monthly" },
+    { url: `${SITE}/fotovoltaico`, lastModified: "2026-11-13", priority: 0.9, changeFrequency: "monthly" },
+    { url: `${SITE}/caldaie-idraulica`, lastModified: "2026-11-13", priority: 0.8, changeFrequency: "monthly" },
+    { url: `${SITE}/chi-siamo`, lastModified: "2026-11-13", priority: 0.6, changeFrequency: "yearly" },
+    { url: `${SITE}/contatti`, lastModified: "2026-11-13", priority: 0.7, changeFrequency: "yearly" },
+    { url: `${SITE}/blog`, lastModified: "2026-11-13", priority: 0.8, changeFrequency: "weekly" },
   ];
 
   // se Supabase non e' configurato il sitemap resta alle sole pagine statiche
@@ -34,10 +38,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const articoli: MetadataRoute.Sitemap = (data ?? []).map((a) => ({
     url: `${SITE}/blog/${a.slug}`,
-    lastModified: new Date(a.updated_at ?? a.published_at ?? Date.now()),
+    lastModified: new Date(dataModifica(a)),
     priority: 0.7,
     changeFrequency: "monthly" as const,
   }));
+
+  // il blog cambia quando esce o si aggiorna un articolo
+  const blog = statiche.find((s) => s.url === `${SITE}/blog`);
+  if (blog && articoli[0]) {
+    blog.lastModified = new Date(Math.max(...articoli.map((x) => new Date(x.lastModified!).getTime())));
+  }
 
   return [...statiche, ...articoli];
 }

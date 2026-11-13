@@ -89,3 +89,13 @@ export function tempoLettura(html: string): number {
   const parole = html.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(parole / 200));
 }
+
+/**
+ * Data di ultima modifica "vera" per schema e sitemap. Un articolo scritto e
+ * poi programmato ha updated_at precedente a published_at: dichiararlo cosi'
+ * fa sembrare l'articolo modificato prima di uscire.
+ */
+export function dataModifica(a: { updated_at: string | null; published_at: string | null; created_at?: string }): string {
+  const date = [a.updated_at, a.published_at, a.created_at].filter(Boolean) as string[];
+  return date.reduce((max, d) => (new Date(d) > new Date(max) ? d : max), date[0] ?? new Date().toISOString());
+}
